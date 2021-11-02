@@ -41,6 +41,18 @@ function menu() {
             case 'View All Departments':
                 showDepartments();
                 break;
+            case 'Add Department':
+                addDepartment();
+                break;
+            case 'Add Role':
+                addRole();
+                break;
+            case 'Add Employee':
+                addEmployee();
+                break;
+            case 'Update Employee Role':
+                updateEmployeeRole();
+                break;
             case 'Quit':
                 process.exit();
                 break;
@@ -72,6 +84,93 @@ function showDepartments() {
     });
 }
 
+function addDepartment() {
+    inquirer
+    .prompt({
+        type: 'input',
+        message: 'What is the name of the Department?',
+        name: 'newDepartment'
+    })
+    .then((data) => {
+        console.log(`Added ${data.newDepartment} to the database.`);
+        menu();
+    });
+}
+
+function addRole() {
+    inquirer
+    .prompt([
+        {
+        type: 'input',
+        message: 'What is the name of the role?',
+        name: 'newRole'
+    },
+    {
+        type: 'input',
+        message: 'What is the salary of the role?',
+        name: 'newSalary'
+    },
+    {
+        type: 'input',
+        message: 'To which department does the role belong?',
+        name: 'newDept'
+    }
+    ])
+    .then((data) => {
+        console.log(`Added ${data.newRole} to the database.`);
+        menu();
+    });
+}
+
+function addEmployee() {
+    inquirer
+    .prompt([
+        {
+        type: 'input',
+        message: `What is the employee's first name?`,
+        name: 'newFirst'
+    },
+    {
+        type: 'input',
+        message: `What is the employee's last name?`,
+        name: 'newLast'
+    },
+    {
+        type: 'input',
+        message: `What is the employee's role?`,
+        name: 'newRole'
+    },
+    {
+        type: 'input',
+        message: `Who is the employee's manager?`,
+        name: 'newDept'
+    }
+    ])
+    .then((data) => {
+        console.log(`Added ${data.newFirst} ${data.newLast} to the database.`);
+        menu();
+    });
+}
+
+function updateEmployeeRole(){
+    inquirer
+    .prompt([
+        {
+        type: 'input',
+        message: `Which employee's role would you like to update?`,
+        name: 'new1'
+    },
+    {
+        type: 'input',
+        message: `Which role do you want to assign to the selected employee?`,
+        name: 'new2'
+    }
+    ])
+    .then((data) => {
+        console.log(`Updated employee's role.`);
+        menu();
+    });
+}
 
 menu();
 
