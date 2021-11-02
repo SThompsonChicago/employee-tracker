@@ -35,6 +35,12 @@ function menu() {
             case 'View All Employees':
                 showEmployees();
                 break;
+            case 'View All Roles':
+                showRoles();
+                break;
+            case 'View All Departments':
+                showDepartments();
+                break;
             case 'Quit':
                 process.exit();
                 break;
@@ -44,6 +50,22 @@ function menu() {
 
 function showEmployees() {
     db.query('SELECT * FROM employees', function (err, res) {
+        console.log('\n');
+        console.table(res);
+        menu();
+    });
+}
+
+function showRoles() {
+    db.query('SELECT * FROM role', function (err, res) {
+        console.log('\n');
+        console.table(res);
+        menu();
+    });
+}
+
+function showDepartments() {
+    db.query('SELECT * FROM department', function (err, res) {
         console.log('\n');
         console.table(res);
         menu();
