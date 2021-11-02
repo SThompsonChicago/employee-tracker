@@ -36,14 +36,14 @@ function menu() {
                 showEmployees();
                 break;
             case 'Quit':
-                console.log('Thank you :)');
+                process.exit();
                 break;
         }
     });
 }
 
 function showEmployees() {
-    db.query('SELECT * FROM workers', function (err, res) {
+    db.query('SELECT * FROM employees', function (err, res) {
         console.log('\n');
         console.table(res);
         menu();
