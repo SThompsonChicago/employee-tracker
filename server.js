@@ -20,26 +20,6 @@ const db = mysql.createConnection(
     console.log('Connected to the employee_tracker_db database.')
 )
 
-function showEmployees() {
-    db.query('SELECT * FROM workers', function (err, res) {
-        console.log('\n')
-        console.table(res);
-    });
-    inquirer
-    .prompt([
-        {
-            type: 'list',
-            message: 'What would you like to do?',
-            name: 'what',
-            choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department', 'Quit'],
-        },
-    ])
-    .then((data) => {
-        return data.what
-    });
-    
-}
-
 function menu() {
     inquirer
     .prompt([
@@ -51,9 +31,22 @@ function menu() {
         },
     ])
     .then((data) => {
-        if (data.what === 'View All Employees'){
-            var next = showEmployees();
+        switch (data.what) {
+            case 'View All Employees':
+                showEmployees();
+                break;
+            case 'Quit':
+                console.log('Thank you :)');
+                break;
         }
+    });
+}
+
+function showEmployees() {
+    db.query('SELECT * FROM workers', function (err, res) {
+        console.log('\n');
+        console.table(res);
+        menu();
     });
 }
 
