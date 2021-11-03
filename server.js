@@ -21,6 +21,7 @@ const db = mysql.createConnection(
 )
 
 function menu() {
+    console.log('')
     inquirer
     .prompt([
         {
@@ -61,7 +62,7 @@ function menu() {
 }
 
 function showEmployees() {
-    db.query('SELECT * FROM employees', function (err, res) {
+    db.query('SELECT employees.id, employees.first_name, employees.last_name, role.title, department.name AS department, role.salary, employees.manager_name FROM employees JOIN role ON employees.role_id = role.id JOIN department ON role.department_id = department.id', function (err, res) {
         console.log('\n');
         console.table(res);
         menu();
@@ -69,7 +70,7 @@ function showEmployees() {
 }
 
 function showRoles() {
-    db.query('SELECT * FROM role', function (err, res) {
+    db.query('SELECT role.id, role.title, department.name AS department, role.salary FROM role JOIN department ON role.department_id = department.id', function (err, res) {
         console.log('\n');
         console.table(res);
         menu();
@@ -167,10 +168,11 @@ function updateEmployeeRole(){
     }
     ])
     .then((data) => {
-        console.log(`Updated employee's role.`);
+        console.log(`Updated ${data.new1}'s role.`);
         menu();
     });
 }
+
 
 menu();
 
