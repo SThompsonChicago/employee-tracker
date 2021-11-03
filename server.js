@@ -86,17 +86,28 @@ function showDepartments() {
 }
 
 function addDepartment() {
-    inquirer
-    .prompt({
+    inquirer.prompt([
+        {
         type: 'input',
         message: 'What is the name of the Department?',
         name: 'newDepartment'
-    })
-    .then((data) => {
-        console.log(`Added ${data.newDepartment} to the database.`);
-        menu();
+        }
+    ]).then(function(data) {
+        const query = db.query(
+            "INSERT INTO department SET ? ",
+            {
+                name: data.newDepartment
+            },
+            function(err) {
+                if (err) throw err
+                console.log(`Added ${data.newDepartment} to the database.`);
+                menu();
+            }
+        )
     });
 }
+
+
 
 function addRole() {
     inquirer
@@ -175,4 +186,6 @@ function updateEmployeeRole(){
 
 
 menu();
+
+
 
